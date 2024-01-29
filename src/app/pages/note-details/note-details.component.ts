@@ -26,12 +26,10 @@ export class NoteDetailsComponent  implements OnInit{
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params)=>{
-          if(params['id']){
+          if(params['id'] && params['id'] !== 'new'){
             this.note = this.noteService.get(params['id']);
             this.noteId = params['id'];
-            if(params['id'] !== 'new'){
-              this.new = false;
-            }
+            this.new = false;
           }
         })
     }
