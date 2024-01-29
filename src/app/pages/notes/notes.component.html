@@ -1,7 +1,7 @@
 <div class="main-container">
 <div class="search-bar-container">
   <div class="control has-icons-left has-icons-right">
-    <input class="input" type="text" placeholder="Filter">
+    <input class="input" type="text" placeholder="Filter" name="search" [(ngModel)]="searchString" #search>
     <span class="icon is-small is-left">
       <i class="fas fa-search"></i>
     </span>
@@ -9,7 +9,7 @@
 </div>
 
 <div class="notes-list" [@listAnim]>
-  @for (note of notes; track $index) {
+  @for (note of notes | filter: searchString; track $index) {
      <app-note-card
      [@itemAnim]
      [link]="'/'+ $index"

@@ -5,11 +5,13 @@ import { INote } from '../../shared/models/note.model';
 import { NotesService } from '../../shared/services/notes.service';
 import { RouterLink } from '@angular/router';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from '../../shared/pipes/filter.pipe';
 
 @Component({
   selector: 'app-notes',
   standalone: true,
-  imports: [NoteCardComponent, NgFor, RouterLink],
+  imports: [NoteCardComponent, NgFor, RouterLink, FormsModule, FilterPipe],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss',
   animations:[
@@ -72,6 +74,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 export class NotesComponent implements OnInit {
 
   notes!: INote[]
+  searchString: string = '';
 
   constructor(private notesService: NotesService){}
 
