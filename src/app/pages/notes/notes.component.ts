@@ -81,6 +81,5 @@ export class NotesComponent implements OnInit {
 
   deleteNode(id: number){
     this.notesService.delete(id);
-    this.notes = this.notesService.getAll();
   }
 }

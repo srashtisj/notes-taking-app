@@ -1,4 +1,4 @@
-import { Injectable, computed } from '@angular/core';
+import { Injectable, Signal, computed, signal } from '@angular/core';
 import { INote } from '../models/note.model';
 
 @Injectable({
@@ -6,48 +6,42 @@ import { INote } from '../models/note.model';
 })
 export class NotesService {
 
-  noteList: INote[]
+  notes: Signal<INote[]>
   //= [];
 
-  = [
+  = signal([
     { title: 'title 1' , desc: 'This is description 1'},
     { title: 'title 2' , desc: 'This is description 2'},
     { title: 'title 3' , desc: 'This is description 3'}
-  ]
+  ])
 
   constructor() { }
 
-  get notes(){
-    return JSON.parse(JSON.stringify(this.noteList));
-  }
-
-
-
   getAll(){
-    return this.notes;
+    return this.notes();
   }
 
   get(id: number){
-    return this.notes[id];
+    return this.notes()[id];
   }
 
   getId(note: INote){
-    this.notes.indexOf(note);
+    this.notes().indexOf(note);
   }
 
   add(note: INote){
-    let newLength = this.noteList.push(note)
+    let newLength = this.notes().push(note)
     let id = newLength - 1;
     return id;
   }
 
   update(id: number, title: string, desc: string){
-    let note = this.noteList[id];
+    let note = this.notes()[id];
     note.title = title;
     note.desc = desc;
   }
 
   delete(id: number){
-    this.noteList.splice(id,1);
+    this.notes().splice(id,1);
   }
 }
